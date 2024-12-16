@@ -11,25 +11,31 @@ const Page = () => {
         {/* <div className='relative h-[100px] w-[150px]'> */}
         <Image src="/logo.png" height={150} width={200} alt="Next.js logo"></Image>
         {/* </div> */}
-        <h2 className="underline hover:cursor-pointer">Signup</h2>
+        <h2 className="underline hover:cursor-pointer">Login</h2>
       </div>
       {/* Horizontal line */}
       <hr className="border-t-1 border-foreground" />
+    
       {/* </div> */}
       {/* Welcome Section */}
-      <div className="text-center pt-14">
-        <h1>Welcome Back to Nandi Pictures</h1>
+      <div className="text-center pt-10">
+        <h1>Welcome to  NANDI PICTURES
+        </h1>
         <h3>
-          Login and Start Watching your favorite <br />
-          movies today
+        Start Watching your favorite movies<br />   
+         today
         </h3>
       </div>
     {/*INPUT */}
-    <div className="text-center pt-14">
+    <div className="text-center pt-10">
     <input type="text" placeholder="Email" className="input-primary" />
-
+<br/>
+<input type="text" placeholder="Phone Number" className="input-primary" />
   <br />
   <input type="password" placeholder="Password" className="input-primary" />
+  <br />
+  <input type="password" placeholder="Confirm Password" className="input-primary" />
+
 
 </div>
 
@@ -37,7 +43,7 @@ const Page = () => {
       <div className="text-center mt-6">
         <div className='button-primary backprim'>
         <a href="#" className="">
-          Login
+          SignUp
         </a>
         </div>
       </div>
