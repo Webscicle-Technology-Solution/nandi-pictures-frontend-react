@@ -1,10 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --theme-primary: #00ff6a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,5 +21,83 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
+h1{
+  font-size: 50px;
+  font-weight: bold;
+}
+h2{
+  font-size: 25px;
+  font-weight:500;
+}
+
+h3{
+  font-size: 30px;
+  font-weight:lighter;
+}
+
+.button-primary {
+  display: inline-block;
+  padding: 10px 60px;
+  /* background: linear-gradient(to right, #E99C05,#F4AE00, #FCB023);; */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  @apply hover:-scale-x-150;
+  
+}
+
+.button-primary:hover {
+  cursor: pointer;
+  /* background: linear-gradient(to left, #E99C05,#F4AE00, #FCB023); */
+
+  transform: translateY(-2px);
+  /* transform: scale(1.05); */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-primary:active {
+  transform: translateY(2px);
+}
+
+.backprim {
+  background: linear-gradient(to left, #E99C05,#F4AE00, #FCB023);
+
+}
+.input-primary {
+  margin-bottom: 18px;
+  padding: 0.5rem 1rem;
+  width: 30%;
+  height: 60px;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.315);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none; /* Remove default outline on focus */
+}
+
+.input-primary {
+  margin-bottom: 18px;
+  padding: 0.5rem 1rem;
+  width: 30%;
+  height: 60px;
+  border: 1px solid #00000059;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.315);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-primary:focus {
+  border: 1px solid transparent; /* Remove default border on focus */
+  box-shadow: 0 0 0 2px rgba(233, 156, 5, 0.8);  /* Glow effect */
+               /* Yellow gradient border using shadow */
+}
+
+
+
+
