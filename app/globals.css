@@ -69,7 +69,7 @@ h4{
 
 
 .button-primary {
-  display: inline-block;
+  /* display: inline-block; */
   padding: 10px 60px;
   /* background: linear-gradient(to right, #E99C05,#F4AE00, #FCB023);; */
   color: white;
@@ -103,7 +103,6 @@ h4{
 
 .backprim {
   background: linear-gradient(to left, #E99C05,#F4AE00, #FCB023);
-
 }
 
 
@@ -157,7 +156,55 @@ h4{
   color: #333;  /* Change color on hover */
 }
 
+.featured-carousel-wrapper{
+  margin-top: 30px;
+  width: 100%;
+  height: 550px;
+  max-width: 1200px;  /* Ensure it doesn't stretch too far */
+  border-radius: 30px;
+
+  /* border: 3px solid #E99C05; */
+  /* overflow: hidden !important; */
+}
+
+.film-carousel-wrapper {
+  margin-top: 30px;
+  width: 100%;
+}
 
 
+/* Custom container for the dots */
+.slick-dots {
+  position: absolute;
+  bottom: 20px;
+  display: flex !important;
+  justify-content: center;
+  width: 100%;
+}
 
+/* Styling each dot */
+.custom-dot {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+/* Active and inactive states for dots */
+.custom-dot .dot-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: grey;
+  transition: background-color 0.3s ease;
+}
+
+.slick-dots li.slick-active .dot-circle {
+  background-color: orange; /* Active state color */
+}
+
+/* Adjust the spacing between dots */
+.slick-dots li {
+  margin: 0 5px;
+}
