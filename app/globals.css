@@ -1,10 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
 
 /* Remove hiding the scrollbar */
 ::-webkit-scrollbar {
@@ -22,51 +20,50 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #FFBF00; /* Slightly different color on hover */
+  background-color: #ffbf00; /* Slightly different color on hover */
 }
 
 /* Firefox styling */
-html, body {
+html,
+body {
   scrollbar-width: thin; /* Thin scrollbar */
-  scrollbar-color: #FFD700 #f1f1f1; /* Thumb and track color for Firefox */
+  scrollbar-color: #ffd700 #f1f1f1; /* Thumb and track color for Firefox */
 }
 
-
 :root {
-  --background: #F2F2F2;
-  --foreground: #0C0C0C;
+  --background: #f2f2f2;
+  --foreground: #0c0c0c;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0C0C0C;
-    --foreground: #F2F2F2;  
+    --background: #0c0c0c;
+    --foreground: #f2f2f2;
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
-h1{
+h1 {
   font-size: 50px;
   font-weight: bold;
 }
-h2{
+h2 {
   font-size: 25px;
-  font-weight:500;
+  font-weight: 500;
 }
 
-h3{
+h3 {
   font-size: 30px;
-  font-weight:lighter;
+  font-weight: lighter;
 }
-h4{
+h4 {
   font-size: 21px;
-  font-weight:400;
+  font-weight: 400;
 }
-
 
 .button-primary {
   /* display: inline-block; */
@@ -81,12 +78,11 @@ h4{
   text-decoration: none;
   transition: all 0.3s ease-in-out;
   @apply hover:-scale-x-150;
-  
 }
 
 .button-primary:hover {
   cursor: pointer;
-  background: linear-gradient(to left, #E99C05,#F4AE00, #FCB023); 
+  background: linear-gradient(to left, #e99c05, #f4ae00, #fcb023);
 
   transform: translateY(-2px);
   /* transform: scale(1.05); */
@@ -94,7 +90,11 @@ h4{
 }
 
 .bg-overlay {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.6)
+  );
 }
 
 .button-primary:active {
@@ -102,16 +102,15 @@ h4{
 }
 
 .backprim {
-  background: linear-gradient(to left, #E99C05,#F4AE00, #FCB023);
+  background: linear-gradient(to left, #e99c05, #f4ae00, #fcb023);
 }
-
 
 .input-primary {
   /* margin-top: 25px; */
   padding: 0.5rem 1rem;
   height: 60px;
-  
-  border: 1px solid #00000059;  /* Default border */
+
+  border: 1px solid #00000059; /* Default border */
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.315);
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -121,90 +120,58 @@ h4{
 
 .input-primary:focus {
   border: 1px solid transparent; /* Remove default border on focus */
-  box-shadow: 0 0 0 2px rgba(233, 156, 5, 0.8);  /* Glow effect */
+  box-shadow: 0 0 0 2px rgba(233, 156, 5, 0.8); /* Glow effect */
 }
 
 /* Error message styles */
 .error-message {
-  color: red;          /* Red text for error */
-  font-size: 12px;      /* Smaller font size */
-  margin-top: 5px;      /* Space between input and error message */
-  text-align: left;     /* Align the error message to the left */
-          /* Ensure it lines up with the input width */
-  margin-left: auto;    /* Center align the error message horizontally */
-  margin-right: auto;   /* Center align the error message horizontally */
+  color: red; /* Red text for error */
+  font-size: 12px; /* Smaller font size */
+  margin-top: 5px; /* Space between input and error message */
+  text-align: left; /* Align the error message to the left */
+  /* Ensure it lines up with the input width */
+  margin-left: auto; /* Center align the error message horizontally */
+  margin-right: auto; /* Center align the error message horizontally */
 }
 
 /* Red border for inputs with errors */
 .input-error {
-  border: 1px solid red;       /* Red border */
+  border: 1px solid red; /* Red border */
   box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Soft red glow */
 }
 .eye-icon {
   /* position: absolute; */
-  
+
   /* top: 50%;
   right: 36%; 
   transform: translateY(-50%); */
-  cursor: pointer;  
-  font-size: 20px;   
-  color: #888;     
-  transition: color 0.3s ease;  
+  cursor: pointer;
+  font-size: 20px;
+  color: #888;
+  transition: color 0.3s ease;
 }
 
 .eye-icon:hover {
-  color: #333;  /* Change color on hover */
+  color: #333; /* Change color on hover */
 }
 
-.featured-carousel-wrapper{
-  margin-top: 30px;
-  width: 100%;
-  height: 550px;
-  max-width: 1200px;  /* Ensure it doesn't stretch too far */
-  border-radius: 30px;
-
-  /* border: 3px solid #E99C05; */
-  /* overflow: hidden !important; */
-}
-
-.film-carousel-wrapper {
-  margin-top: 30px;
-  width: 100%;
-}
-
-
-/* Custom container for the dots */
-.slick-dots {
-  position: absolute;
-  bottom: 20px;
-  display: flex !important;
-  justify-content: center;
-  width: 100%;
-}
-
-/* Styling each dot */
-.custom-dot {
-  width: 20px;
-  height: 20px;
+.slick-dots.slick-thumb {
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
 }
 
-/* Active and inactive states for dots */
-.custom-dot .dot-circle {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: grey;
-  transition: background-color 0.3s ease;
+.slick-dots.slick-thumb li {
+  width: 6px;
+  height: 6px;
+  margin: 0 3px;
+  border-radius: 999px;
+  transition: all 0.5s ease-in-out;
+  will-change: width;
+  background-color: black;
 }
 
-.slick-dots li.slick-active .dot-circle {
-  background-color: orange; /* Active state color */
-}
-
-/* Adjust the spacing between dots */
-.slick-dots li {
-  margin: 0 5px;
+.slick-dots.slick-thumb li.slick-active {
+  background-color: orange;
+  width: 24px;
 }
