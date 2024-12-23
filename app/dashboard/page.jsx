@@ -2,7 +2,6 @@
 import React from "react";
 import Image from "next/image";
 import GoldenButton from "../component/reuseable/GoldenButton";
-import FilmCard from "../component/reuseable/FilmCard";
 import FilmCardCarousel from "../component/reuseable/FilmCardCarousel";
 
 const Page = () => {
@@ -49,10 +48,12 @@ const Page = () => {
           </div>
           <div className="bg-gray ml-28 mt-16">
             <h3 className="text-white">Trending Shows</h3>
-            <div className="flex w-full items-center justify-center mt-10 overflow-visiblebackdrop-blur-md">
+            {/* <div className="flex w-[76vw] items-center justify-center mt-10 overflow-visiblebackdrop-blur-md"> */}
+            <div className="">
               {/* <FilmCard showContinueWatch={false} showStar={false} />
               <FilmCard showContinueWatch={false} showStar={false} /> */}
-              <FilmCardCarousel></FilmCardCarousel>
+
+              <FilmCardCarousel />
             </div>
           </div>
         </div>
