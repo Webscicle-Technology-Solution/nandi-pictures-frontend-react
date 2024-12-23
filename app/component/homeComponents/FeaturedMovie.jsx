@@ -16,7 +16,7 @@ const FeaturedMovie = ({
     <div className="mr-3 ml-3 relative bg-gray-900 rounded-[25px] overflow-hidden  shadow-lg text-white border-[3px] border-solid border-[#e6ad35]">
       {/* Background Image */}
 
-      <div className="relative w-[1250px] h-[550px] ">
+      <div className="relative w-[100%] h-[550px] ">
         <Image
           src={imageSrc}
           alt={title}

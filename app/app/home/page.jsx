@@ -35,8 +35,8 @@ const Page = () => {
     },
   ];
   return (
-    <div className="flex flex-col justify-start ">
-      <div className="flex flex-row justify-between items-center">
+    <div className="flex flex-col justify-start items-start w-full">
+      <div className="flex flex-row justify-between items-center w-full">
         <SearchBar />
         <ProfileShow />
       </div>
