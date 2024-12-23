@@ -1,45 +1,47 @@
 // Page.js (updated)
 "use client";
 
-import React from 'react';
-import FeaturedCarousel from '@/app/component/homeComponents/FeaturedCarousel';
-import ProfileShow from '@/app/component/homeComponents/ProfileShow';
-import SearchBar from '@/app/component/homeComponents/SearchBar';
-import Image from 'next/image';
-import FilmCard from '@/app/component/reuseable/FilmCard';
-import FilmCardCarousel from '@/app/component/reuseable/FilmCardCarousel';
+import React from "react";
+import FeaturedCarousel from "@/app/component/homeComponents/FeaturedCarousel";
+import ProfileShow from "@/app/component/homeComponents/ProfileShow";
+import SearchBar from "@/app/component/homeComponents/SearchBar";
+import Image from "next/image";
+import FilmCard from "@/app/component/reuseable/FilmCard";
+import FilmCardCarousel from "@/app/component/reuseable/FilmCardCarousel";
 
 const Page = () => {
-  const movieList = [{
-    imageSrc : '/poster.jpg', // Default placeholder image
-    title : 'THE RISE OF SUDARSHAN CHAKRA', // Default title
-    showContinueWatch : true, // Show or hide Continue Watch
-    showStar : true, // Show or hide Star button
-    filmDetailUrl : '/login', // Default film detail URL
-  },
+  const movieList = [
+    {
+      imageSrc: "/poster.jpg", // Default placeholder image
+      title: "THE RISE OF SUDARSHAN CHAKRA", // Default title
+      showContinueWatch: true, // Show or hide Continue Watch
+      showStar: true, // Show or hide Star button
+      filmDetailUrl: "/login", // Default film detail URL
+    },
 
-  {
-    imageSrc : '/poster.jpg', // Default placeholder image
-    title : 'THE 2', // Default title
-    showContinueWatch : true, // Show or hide Continue Watch
-    showStar : true, // Show or hide Star button
-    filmDetailUrl : '/login', // Default film detail URL
-  },
-  {
-    imageSrc : '/poster.jpg', // Default placeholder image
-    title : 'THE 3', // Default title
-    showContinueWatch : true, // Show or hide Continue Watch
-    showStar : true, // Show or hide Star button
-    filmDetailUrl : '/login', // Default film detail URL
-  }]
+    {
+      imageSrc: "/poster.jpg", // Default placeholder image
+      title: "THE 2", // Default title
+      showContinueWatch: true, // Show or hide Continue Watch
+      showStar: true, // Show or hide Star button
+      filmDetailUrl: "/login", // Default film detail URL
+    },
+    {
+      imageSrc: "/poster.jpg", // Default placeholder image
+      title: "THE 3", // Default title
+      showContinueWatch: true, // Show or hide Continue Watch
+      showStar: true, // Show or hide Star button
+      filmDetailUrl: "/login", // Default film detail URL
+    },
+  ];
   return (
-    <div className='flex flex-col justify-start'>
+    <div className="flex flex-col justify-start ">
       <div className="flex flex-row justify-between items-center">
         <SearchBar />
         <ProfileShow />
       </div>
       {/* Wrapping the carousel in a container for better layout control */}
-      <div className="carousel-wrapper featured-carousel-wrapper">
+      <div className="mt-5">
         <FeaturedCarousel />
       </div>
 
@@ -52,9 +54,8 @@ const Page = () => {
       </div>
        
       </div> */}
-      <div>
-      <FilmCardCarousel/>  
-
+      <div className="flex items-center justify-center mt-10 overflow-visible">
+        <FilmCardCarousel />
       </div>
     </div>
   );

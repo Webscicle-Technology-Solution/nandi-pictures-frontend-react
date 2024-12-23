@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import Slider from "react-slick";
+import FeaturedMovie from "./FeaturedMovie";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import FeaturedMovie from './FeaturedMovie';
 
 const FeaturedCarousel = () => {
   const settings = {
@@ -14,23 +14,16 @@ const FeaturedCarousel = () => {
     autoplay: true,
     autoplaySpeed: 3000,
     arrows: false,
-    customPaging: (i) => (
-      <div className="custom-dot">
-        {/* Style each dot (e.g., circles, or shapes based on your design) */}
-        <div className="dot-circle"></div>
-      </div>
-    ),
-    appendDots: dots => (
-      <div>
-        <ul> {dots} </ul>
-      </div>
-    )
+    customPaging: function (i) {
+      return <div className="dot"></div>;
+    },
+    dotsClass: "slick-dots slick-thumb",
   };
 
   return (
-    <div className="carousel-container" style={{ height: '600px' }}>
+    <div className="w-[75vw]">
       <Slider {...settings}>
-        <div className='-z-10'><FeaturedMovie /></div>
+        <FeaturedMovie />
         <FeaturedMovie />
         <FeaturedMovie />
       </Slider>
