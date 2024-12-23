@@ -20,8 +20,8 @@ const FilmCard = ({
   return (
     <>
       <div
-        className="mt-5  mb-5 h-[400px] bg-gray-900 rounded-lg overflow-hidden shadow-lg text-white cursor-pointer transition-transform transform 
-        hover:scale-105 hover:shadow-xl hover:z-20 mr-5"
+        className="mt-5 ml-3  mb-5 h-[400px] bg-gray-900 rounded-lg overflow-hidden shadow-lg text-white cursor-pointer transition-transform transform 
+        hover:scale-105 hover:shadow-xl hover:z-20 mr-2"
       >
         {/* Wrapper div to prevent image overflow */}
         <div className="h-[100px]">

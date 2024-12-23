@@ -54,7 +54,7 @@ const Page = () => {
       </div>
        
       </div> */}
-      <div className="flex items-center justify-center mt-10 overflow-visible">
+      <div className="flex items-center justify-center mt-10  overflow-visible">
         <FilmCardCarousel />
       </div>
     </div>

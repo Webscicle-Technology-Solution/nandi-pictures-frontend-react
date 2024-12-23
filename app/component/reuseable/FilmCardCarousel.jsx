@@ -42,8 +42,8 @@ const FilmCardCarousel = () => {
     <div className="w-[76vw] h-[800px] flex flex-col gap-10 overflow-visible">
       <h4>Continue Watching</h4>
 
-      <div className="align-self-start!">
-        <Slider {...settings} className="overflow-visible">
+      <div className="align-self-start! ">
+        <Slider {...settings} className="overflow-visible ">
           {movieList.map((item, index) => (
             // Each FilmCard should be inside its own slide
             <FilmCard {...item} key={index} />
