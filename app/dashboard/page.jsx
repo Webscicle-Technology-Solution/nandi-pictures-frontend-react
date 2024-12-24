@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import GoldenButton from "../component/reuseable/GoldenButton";
-import FilmCardCarousel from "../component/reuseable/FilmCardCarousel";
+import DashboardCarosel from "../component/dashboard/DashboardCarosel";
 
 const Page = () => {
   return (
@@ -53,7 +53,7 @@ const Page = () => {
               {/* <FilmCard showContinueWatch={false} showStar={false} />
               <FilmCard showContinueWatch={false} showStar={false} /> */}
 
-              <FilmCardCarousel />
+              <DashboardCarosel/>
             </div>
           </div>
         </div>

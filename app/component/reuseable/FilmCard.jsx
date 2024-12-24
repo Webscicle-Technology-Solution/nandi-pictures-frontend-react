@@ -9,8 +9,9 @@ import "slick-carousel/slick/slick-theme.css";
 
 const FilmCard = ({
   imageSrc = "/poster.jpg", // Default placeholder image
-  title = "THE RISE OF SUDARSHANckasfklajfkjasklfjkdlaasfa;fl;af;askf;lkasf;kas;lfkas;",
+  title = "THE RISE OF SUDARSHANckas;",
   showContinueWatch = true, // Show or hide Continue Watch
+  showStar=true,
   filmDetailUrl = "/login", // Default film detail URL
 }) => {
   const [isFav, setIsFav] = useState(false);
@@ -50,7 +51,9 @@ const FilmCard = ({
         </div>
 
         {/* Star Button (Favorite) */}
-        <div className="absolute top-5 items-end justify-end w-full flex flex-col pr-3">
+        {
+          showStar? 
+          <div className="absolute top-5 items-end justify-end w-full flex flex-col pr-3">
           <div
             onMouseEnter={() => setIsHovered(true)} // Show text on hover
             onMouseLeave={() => setIsHovered(false)} // Hide text on mouse leave
@@ -77,6 +80,9 @@ const FilmCard = ({
             </span>
           )}
         </div>
+          :<></>
+        }
+        
 
         {/* Continue Watch */}
         {showContinueWatch && (

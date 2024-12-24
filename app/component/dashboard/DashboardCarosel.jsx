@@ -1,29 +1,28 @@
 import React from "react";
-// import FilmCard from "./FilmCard";
+import FilmCard from "../reuseable/FilmCard";
 import Slider from "react-slick";
-import FilmCard from "./FilmCard";
 
-const FilmCardCarousel = () => {
+const DashboardCarosel = () => {
   const movieList = [
     {
       imageSrc: "/poster.jpg", // Default placeholder image
       title: "THE RISE OF SUDARSHAN CHAKRA", // Default title
-      showContinueWatch: true, // Show or hide Continue Watch
-      showStar: true, // Show or hide Star button
+      showContinueWatch: false, // Show or hide Continue Watch
+      showStar: false, // Show or hide Star button
       filmDetailUrl: "/login", // Default film detail URL
     },
     {
       imageSrc: "/poster.jpg", // Default placeholder image
       title: "THE 2", // Default title
-      showContinueWatch: true, // Show or hide Continue Watch
-      showStar: true, // Show or hide Star button
+      showContinueWatch: false  , // Show or hide Continue Watch
+      showStar: false, // Show or hide Star button
       filmDetailUrl: "/login", // Default film detail URL
     },
     {
       imageSrc: "/poster.jpg", // Default placeholder image
       title: "THE 3", // Default title
-      showContinueWatch: true, // Show or hide Continue Watch
-      showStar: true, // Show or hide Star button
+      showContinueWatch: false, // Show or hide Continue Watch
+      showStar: false, // Show or hide Star button
       filmDetailUrl: "/login", // Default film detail URL
     },
   ];
@@ -54,5 +53,4 @@ const FilmCardCarousel = () => {
     </div>
   );
 };
-
-export default FilmCardCarousel;
+export default DashboardCarosel;
