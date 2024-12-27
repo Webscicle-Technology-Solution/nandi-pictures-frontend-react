@@ -11,21 +11,23 @@ const FilmCard = ({
   imageSrc = "/poster.jpg", // Default placeholder image
   title = "THE RISE OF SUDARSHANckas;",
   showContinueWatch = false, // Show or hide Continue Watch
+  isFavorite=false,
   showStar=true,
   filmDetailUrl = "/login", // Default film detail URL
 }) => {
-  const [isFav, setIsFav] = useState(false);
+  const [isFav, setIsFav] = useState({isFavorite});
   const [isHovered, setIsHovered] = useState(false);
 
   const handleFavClick = () => {
     setIsFav(!isFav); // Toggle the favorite status
+
   };
 
   return (
     <>
       <div
         className="mt-5 ml-3  mb-5 h-[400px] bg-gray-900 rounded-lg overflow-hidden shadow-lg text-white cursor-pointer transition-transform transform 
-        hover:scale-105 hover:shadow-xl hover:z-20 mr-2"
+        hover:scale-105 hover:shadow-xl hover:z-20 mr-2 "
       >
         {/* Wrapper div to prevent image overflow */}
         <div className="h-[100px]">

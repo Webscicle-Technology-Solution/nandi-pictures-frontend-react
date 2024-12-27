@@ -8,6 +8,7 @@ import SearchBar from "@/app/component/homeComponents/SearchBar";
 import Image from "next/image";
 import FilmCard from "@/app/component/reuseable/FilmCard";
 import FilmCardCarousel from "@/app/component/reuseable/FilmCardCarousel";
+import Link from "next/link";
 
 const Page = () => {
   const movieList = [
@@ -45,23 +46,30 @@ const Page = () => {
         <FeaturedCarousel />
       </div>
 
-      {/* <div className='mt-10 p-3 flex flex-col gap-5'>
-        <h4>Continue Watching</h4>
-      <div className='flex gap-8 mb-8'>
-       {movieList.map((item, index) => ( // Use map to render FilmCard components for each item in the movieList array
-        <FilmCard key={index} {...item} /> // Pass the item as props to the FilmCard component
-      ))}
-      </div>
-       
-      </div> */}
-      {/* <div className="flex flex-col "> */}
-
         <h4 className="mt-10 ml-3">Continue Watching</h4>
       <div className="flex items-center justify-center   overflow-visible">
         <FilmCardCarousel />
       </div>
       <h4 className="mt-8 ml-3">New Realses</h4>
       <div className="flex items-center justify-center   overflow-visible">
+        <FilmCardCarousel />
+      </div>
+      <h4 className="mt-8 ml-3">Top Trending</h4>
+      <div className="flex items-center justify-center overflow-visible">
+        <FilmCardCarousel />
+      </div>
+      <div className="flex flex-row justify-between items-center w-full">
+      <h4 className="mt-8 ml-3">Movies</h4>
+      <Link href="/app/movies" className="text-blue-600 font-extralight underline hover:text-blue-800">View All</Link>
+      </div>
+      <div className="flex items-center justify-center overflow-visible">
+        <FilmCardCarousel />
+      </div>
+      <div className="flex flex-row justify-between items-center w-full">
+      <h4 className="mt-8 ml-3">TV Shows</h4>
+      <Link href="/app/tvshows" className="text-blue-600 font-extralight underline hover:text-blue-800">View All</Link>
+      </div>
+      <div className="flex items-center justify-center overflow-visible">
         <FilmCardCarousel />
       </div>
       {/* </div> */}
