@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 const FilmCard = ({
   imageSrc = "/poster.jpg", // Default placeholder image
   title = "THE RISE OF SUDARSHANckas;",
-  showContinueWatch = true, // Show or hide Continue Watch
+  showContinueWatch = false, // Show or hide Continue Watch
   showStar=true,
   filmDetailUrl = "/login", // Default film detail URL
 }) => {
@@ -89,6 +89,12 @@ const FilmCard = ({
           <div className="absolute pt-2 bottom-4 ml-2 pl-3 pr-3 pb-2 flex items-center space-x-2 hover:bg-white/40 rounded-xl">
             <IoIosPlayCircle size={40} color="#FFBF00" />
             <span className="text-lg font-light">Continue Watch</span>
+          </div>
+        )}
+        {showContinueWatch!==true && (
+          <div className="absolute pt-2 bottom-4 ml-2 pl-3 pr-3 pb-2 flex items-center space-x-2 hover:bg-white/40 rounded-xl">
+            <IoIosPlayCircle size={40} color="#FFBF00" />
+            <span className="text-lg font-light">Watch Now</span>
           </div>
         )}
       </div>

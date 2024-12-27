@@ -40,7 +40,7 @@ const FilmCardCarousel = () => {
   };
 
   return (
-    <div className="w-[76vw] h-[800px] flex flex-col gap-10 overflow-visible">
+    <div className="w-[76vw] flex flex-col gap-10 overflow-visible">
      
 
       <div className="align-self-start! ">
