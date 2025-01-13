@@ -87,44 +87,6 @@ const VideoPlayer = ({
     setTitleVisible(false); // Hide the title when the video starts playing
   };
 
-  // Apply custom styles after the player is initialized
-  useEffect(() => {
-    if (isClient && document.querySelector(".shaka-controls")) {
-      const controlPanel = document.querySelector(".shaka-controls");
-
-      if (controlPanel) {
-        // Use Tailwind to set the control panel layout
-        controlPanel.classList.add(
-          "flex",
-          "justify-between",
-          "items-center",
-          "w-full",
-          "absolute",
-          "bottom-0",
-          "left-0",
-          "right-0",
-          "p-3"
-        );
-
-        // Apply left controls' spacing (e.g., Play/Pause, Seek Bar, Volume)
-        const leftControls = controlPanel.querySelectorAll(
-          ".shaka-play-button, .shaka-seek-bar-container, .shaka-mute-button, .shaka-volume-container, .shaka-time-and-duration"
-        );
-        leftControls.forEach((control) => {
-          control.classList.add("mr-4"); // Adds margin between elements on the left
-        });
-
-        // Apply right controls' left margin auto (e.g., Quality, Fullscreen)
-        const rightControls = controlPanel.querySelectorAll(
-          ".shaka-quality-selector, .shaka-fullscreen-button"
-        );
-        rightControls.forEach((control) => {
-          control.classList.add("ml-auto"); // Pushes controls to the right
-        });
-      }
-    }
-  }, [isClient]);
-
   return (
     isClient && (
       <div
