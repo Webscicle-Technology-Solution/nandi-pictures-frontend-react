@@ -1,182 +1,219 @@
-  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  /* Remove hiding the scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px; /* Small scrollbar */
-  }
+/* Remove hiding the scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Small scrollbar */
+}
 
-  ::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* Track color */
-  }
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Track color */
+}
 
-  ::-webkit-scrollbar-thumb {
-    background-color: #ffc400; /* Golden color */
-    border-radius: 10px;
-    border: 2px solid #fff; /* Optional border color */
-  }
+::-webkit-scrollbar-thumb {
+  background-color: #ffc400; /* Golden color */
+  border-radius: 10px;
+  border: 2px solid #fff; /* Optional border color */
+}
 
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #ffbf00; /* Slightly different color on hover */
-  }
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ffbf00; /* Slightly different color on hover */
+}
 
-  /* Firefox styling */
-  html,
-  body {
-    scrollbar-width: thin; /* Thin scrollbar */
-    scrollbar-color: #ffd700 #f1f1f1; /* Thumb and track color for Firefox */
-  }
+/* Firefox styling */
+html,
+body {
+  scrollbar-width: thin; /* Thin scrollbar */
+  scrollbar-color: #ffd700 #f1f1f1; /* Thumb and track color for Firefox */
+}
 
+:root {
+  --background: #f2f2f2;
+  --foreground: #0c0c0c;
+}
+
+@media (prefers-color-scheme: dark) {
   :root {
-    --background: #f2f2f2;
-    --foreground: #0c0c0c;
+    --background: #0c0c0c;
+    --foreground: #f2f2f2;
   }
+}
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: #0c0c0c;
-      --foreground: #f2f2f2;
-    }
-  }
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: "Poppins", sans-serif;
+}
+h1 {
+  font-size: 50px;
+  font-weight: bold;
+}
+h2 {
+  font-size: 25px;
+  font-weight: 500;
+}
 
-  body {
-    color: var(--foreground);
-    background: var(--background);
-    font-family: "Poppins", sans-serif;
-  }
-  h1 {
-    font-size: 50px;
-    font-weight: bold;
-  }
-  h2 {
-    font-size: 25px;
-    font-weight: 500;
-  }
+h3 {
+  font-size: 30px;
+  font-weight: lighter;
+}
+h4 {
+  font-size: 21px;
+  font-weight: 400;
+}
 
-  h3 {
-    font-size: 30px;
-    font-weight: lighter;
-  }
-  h4 {
-    font-size: 21px;
-    font-weight: 400;
-  }
+.button-primary {
+  /* display: inline-block; */
+  padding: 10px 60px;
+  /* background: linear-gradient(to right, #E99C05,#F4AE00, #FCB023);; */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  @apply hover:-scale-x-150;
+}
 
-  .button-primary {
-    /* display: inline-block; */
-    padding: 10px 60px;
-    /* background: linear-gradient(to right, #E99C05,#F4AE00, #FCB023);; */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
-    @apply hover:-scale-x-150;
-  }
+.button-primary:hover {
+  cursor: pointer;
+  background: linear-gradient(to left, #e99c05, #f4ae00, #fcb023);
 
-  .button-primary:hover {
-    cursor: pointer;
-    background: linear-gradient(to left, #e99c05, #f4ae00, #fcb023);
+  transform: translateY(-2px);
+  /* transform: scale(1.05); */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
-    transform: translateY(-2px);
-    /* transform: scale(1.05); */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
+.bg-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.6)
+  );
+}
 
-  .bg-overlay {
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.6),
-      rgba(0, 0, 0, 0.6)
-    );
-  }
+.button-primary:active {
+  transform: translateY(2px);
+}
 
-  .button-primary:active {
-    transform: translateY(2px);
-  }
+.backprim {
+  background: linear-gradient(to left, #e99c05, #f4ae00, #fcb023);
+}
 
-  .backprim {
-    background: linear-gradient(to left, #e99c05, #f4ae00, #fcb023);
-  }
+.input-primary {
+  /* margin-top: 25px; */
+  padding: 0.5rem 1rem;
+  height: 60px;
 
-  .input-primary {
-    /* margin-top: 25px; */
-    padding: 0.5rem 1rem;
-    height: 60px;
+  border: 1px solid #00000059; /* Default border */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.315);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+  @apply min-w-[300px] md:min-w-[600px];
+}
 
-    border: 1px solid #00000059; /* Default border */
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.315);
-    transition: border-color 0.3s, box-shadow 0.3s;
-    outline: none;
-    @apply min-w-[300px] md:min-w-[600px];
-  }
+.input-primary:focus {
+  border: 1px solid transparent; /* Remove default border on focus */
+  box-shadow: 0 0 0 2px rgba(233, 156, 5, 0.8); /* Glow effect */
+}
 
-  .input-primary:focus {
-    border: 1px solid transparent; /* Remove default border on focus */
-    box-shadow: 0 0 0 2px rgba(233, 156, 5, 0.8); /* Glow effect */
-  }
+/* Error message styles */
+.error-message {
+  color: red; /* Red text for error */
+  font-size: 12px; /* Smaller font size */
+  margin-top: 5px; /* Space between input and error message */
+  text-align: left; /* Align the error message to the left */
+  /* Ensure it lines up with the input width */
+  margin-left: auto; /* Center align the error message horizontally */
+  margin-right: auto; /* Center align the error message horizontally */
+}
 
-  /* Error message styles */
-  .error-message {
-    color: red; /* Red text for error */
-    font-size: 12px; /* Smaller font size */
-    margin-top: 5px; /* Space between input and error message */
-    text-align: left; /* Align the error message to the left */
-    /* Ensure it lines up with the input width */
-    margin-left: auto; /* Center align the error message horizontally */
-    margin-right: auto; /* Center align the error message horizontally */
-  }
+/* Red border for inputs with errors */
+.input-error {
+  border: 1px solid red; /* Red border */
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Soft red glow */
+}
+.eye-icon {
+  /* position: absolute; */
 
-  /* Red border for inputs with errors */
-  .input-error {
-    border: 1px solid red; /* Red border */
-    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Soft red glow */
-  }
-  .eye-icon {
-    /* position: absolute; */
-
-    /* top: 50%;
+  /* top: 50%;
     right: 36%; 
     transform: translateY(-50%); */
-    cursor: pointer;
-    font-size: 20px;
-    color: #888;
-    transition: color 0.3s ease;
-  }
+  cursor: pointer;
+  font-size: 20px;
+  color: #888;
+  transition: color 0.3s ease;
+}
 
-  .eye-icon:hover {
-    color: #333; /* Change color on hover */
-  }
+.eye-icon:hover {
+  color: #333; /* Change color on hover */
+}
 
-  .slick-dots.slick-thumb {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
+.slick-dots.slick-thumb {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
-  .slick-dots.slick-thumb li {
-    width: 6px;
-    height: 6px;
-    margin: 0 3px;
-    border-radius: 999px;
-    transition: all 0.5s ease-in-out;
-    will-change: width;
-    background-color: black;
-  }
+.slick-dots.slick-thumb li {
+  width: 6px;
+  height: 6px;
+  margin: 0 3px;
+  border-radius: 999px;
+  transition: all 0.5s ease-in-out;
+  will-change: width;
+  background-color: black;
+}
 
-  .slick-dots.slick-thumb li.slick-active {
-    background-color: orange;
-    width: 24px;
-  }
+.slick-dots.slick-thumb li.slick-active {
+  background-color: orange;
+  width: 24px;
+}
 
-  .slick-track {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
+.slick-track {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* SHAKA */
+
+/* Apply flex layout to the controls container */
+.shaka-controls-button-panel.shaka-show-controls-on-mouse-over {
+  @apply flex justify-between !important;
+}
+
+/* Left-side controls: Play, Pause, Mute, Seek Bar */
+.shaka-controls-button-panel.shaka-show-controls-on-mouse-over
+  .shaka-play-button,
+.shaka-controls-button-panel.shaka-show-controls-on-mouse-over
+  .shaka-seek-bar-container,
+.shaka-controls-button-panel.shaka-show-controls-on-mouse-over
+  .shaka-mute-button,
+.shaka-controls-button-panel.shaka-show-controls-on-mouse-over
+  .shaka-volume-container,
+.shaka-controls-button-panel.shaka-show-controls-on-mouse-over
+  .shaka-time-and-duration {
+  @apply flex items-center mr-4 !important; /* Align items and give spacing between controls */
+}
+
+/* Right-side controls: Quality, Fullscreen, and Resolution */
+.shaka-controls-button-panel.shaka-show-controls-on-mouse-over
+  .shaka-quality-selector,
+.shaka-controls-button-panel.shaka-show-controls-on-mouse-over
+  .shaka-fullscreen-button,
+.shaka-controls-button-panel.shaka-show-controls-on-mouse-over
+  .shaka-overflow-button.shaka-resolution-button {
+  /* Target resolution button specifically */
+  @apply flex items-center justify-end gap-0 ml-auto max-w-[10px] p-0 !important; /* Push these items to the right */
+}
+
+.shaka-controls-button-panel.shaka-show-controls-on-mouse-over
+  .shaka-fullscreen-button {
+  @apply ml-16 !important;
+}
