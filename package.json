@@ -13,6 +13,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
+    "react-player": "^2.16.0",
     "react-responsive-carousel": "^3.2.23",
     "react-slick": "^0.30.3",
     "shaka-player": "^4.12.7",
