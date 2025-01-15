@@ -5,8 +5,6 @@ import React from "react";
 import FeaturedCarousel from "@/app/component/homeComponents/FeaturedCarousel";
 import ProfileShow from "@/app/component/homeComponents/ProfileShow";
 import SearchBar from "@/app/component/homeComponents/SearchBar";
-import Image from "next/image";
-import FilmCard from "@/app/component/reuseable/FilmCard";
 import FilmCardCarousel from "@/app/component/reuseable/FilmCardCarousel";
 import Link from "next/link";
 
@@ -43,7 +41,7 @@ const Page = () => {
       </div>
       {/* Wrapping the carousel in a container for better layout control */}
       <div className="mt-5">
-        <FeaturedCarousel />
+        <FeaturedCarousel/>
       </div>
 
         <h4 className="mt-10 ml-3">Continue Watching</h4>
