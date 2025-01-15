@@ -9,7 +9,7 @@ const FeaturedMovie = ({
   imageSrc = "/poster.jpg", // Default placeholder image
   title = "THE RISE OF SUDARSHAN CHAKRA", // Default title
   description = "A biopic on the journey of life of Jain Saint Shri Sudarshan Lal Ji Maharaj.", // Default description
-  filmDetailUrl = "/app/details/movie/1", // Default film detail URL
+  filmDetailUrl = "/app/details/movies/1", // Default film detail URL
   watchUrl = "/watch", // Default watch URL
 }) => {
   return (

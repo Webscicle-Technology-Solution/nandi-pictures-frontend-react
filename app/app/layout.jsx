@@ -9,7 +9,8 @@ export default function RootLayout({ children }) {
     <>
       <div className="flex max-h-screen w-full">
         <Sidebar />
-        <div className="flex-1 pl-[290px] pr-[50px] pt-14"> {/* Adjust left padding for content */}
+        <div className="flex-1 pl-[290px] pr-[50px] pt-14">
+          {/* Adjust left padding for content */}
           {children}
         </div>
       </div>
