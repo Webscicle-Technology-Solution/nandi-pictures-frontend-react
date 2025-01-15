@@ -10,21 +10,21 @@ const FilmCardCarousel = () => {
       title: "THE RISE OF SUDARSHAN CHAKRA", // Default title
       showContinueWatch: true, // Show or hide Continue Watch
       showStar: true, // Show or hide Star button
-      filmDetailUrl: "/login", // Default film detail URL
+      filmDetailUrl: "/app/details/movies/1", // Default film detail URL
     },
     {
       imageSrc: "/poster.jpg", // Default placeholder image
       title: "THE 2", // Default title
       showContinueWatch: true, // Show or hide Continue Watch
       showStar: true, // Show or hide Star button
-      filmDetailUrl: "/login", // Default film detail URL
+      filmDetailUrl: "/app/details/movies/2", // Default film detail URL
     },
     {
       imageSrc: "/poster.jpg", // Default placeholder image
       title: "THE 3", // Default title
       showContinueWatch: true, // Show or hide Continue Watch
       showStar: true, // Show or hide Star button
-      filmDetailUrl: "/login", // Default film detail URL
+      filmDetailUrl: "/app/details/movies/3", // Default film detail URL
     },
   ];
 

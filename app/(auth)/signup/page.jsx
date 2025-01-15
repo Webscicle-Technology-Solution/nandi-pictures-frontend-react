@@ -5,12 +5,16 @@ import InputFields from '@/app/component/formComponents/inputFields/InputFields'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Using react-icons for eye toggle
 
 const Page = () => {
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
   const [emailError, setEmailError] = useState('');
+  const [nameError, setNameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [confirmPassError, setConfirmPassError] = useState('');
 
   const [emailID, setEmailID] = useState('');
+  const [name, setname] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
@@ -18,6 +22,7 @@ const Page = () => {
 
   // Handle Input Changes and Validation
   const handleEmailChange = (e) => {
+
     const value = e.target.value;
     setEmailID(value);
     if (!value) {
@@ -29,13 +34,28 @@ const Page = () => {
     }
   };
 
+  function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  const handleNameChange = (e) => {
+    const value = capitalizeFirstLetter( e.target.value);
+    setname(value);
+    if (!value) {
+      setNameError('Name is required');
+    }
+    else {
+      setNameError('');
+    }
+  }
+
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
     if (!value) {
       setPasswordError('Password is required');
-    } else if (value.length < 8) {
-      setPasswordError('Password must be at least 8 characters');
+    } else if (value.length < 5) {
+      setPasswordError('Password must be at least 5 characters');
     } else {
       setPasswordError('');
     }
@@ -65,11 +85,16 @@ const Page = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Final validation check before submission
     let isValid = true;
+
+    if (!name) {
+      setNameError('Name is required');
+      isValid = false;
+    }
 
     if (!emailID) {
       setEmailError('Email is required');
@@ -82,8 +107,8 @@ const Page = () => {
     if (!password) {
       setPasswordError('Password is required');
       isValid = false;
-    } else if (password.length < 8) {
-      setPasswordError('Password must be at least 8 characters');
+    } else if (password.length < 5) {
+      setPasswordError('Password must be at least 5 characters');
       isValid = false;
     }
 
@@ -104,8 +129,37 @@ const Page = () => {
     }
 
     if (isValid) {
-      // Proceed with form submission
-      console.log('Form submitted');
+      console.log('api:', `${apiBaseUrl}/api/auth/register`);
+      // Proceed with API call for login
+      try {
+        const response = await fetch(`${apiBaseUrl}/api/auth/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({name: name,phone: phone, email: emailID, newpassword: password,confirmpassword: confirmPass}),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Successful login, store the tokens in Zustand
+          const { accessToken, refreshToken, user } = data;
+
+          // Store the tokens and user data in Zustand
+          login(accessToken, refreshToken, user);
+
+          // Redirect the user to the dashboard or home page
+          window.location.href = '/app/home';  // Replace with actual route
+
+        } else {
+          // Handle login error
+          alert(data.message || 'Registartion failed');
+        }
+      } catch (error) {
+        console.error('Error during account creation:', error);
+        alert('Something went wrong, please try again');
+      }
     }
   };
 
@@ -121,7 +175,12 @@ const Page = () => {
       {/* Input Fields */}
       <form onSubmit={handleSubmit} >
         <div className="text-center w-full flex flex-col gap-3 justify-center items-center">
-         
+          <InputFields
+            type="text"
+            placeholder="Name"
+            Error={nameError}
+            handleChange={handleNameChange}
+          />
           <InputFields
             type="text"
             placeholder="Email"
