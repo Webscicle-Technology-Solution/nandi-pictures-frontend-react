@@ -1,10 +1,11 @@
 "use client";
-import React from "react";
 import Image from "next/image";
-import GoldenButton from "../component/reuseable/GoldenButton";
-import DashboardCarosel from "../component/dashboard/DashboardCarosel";
+import GoldenButton from "./component/reuseable/GoldenButton";
+import DashboardCarosel from "./component/dashboard/DashboardCarosel";
+import React from "react";
+import FilmCard from "./component/reuseable/FilmCard";
 
-const Page = () => {
+export default function Home() {
   return (
     <div className="overflow-auto scrollbar-hide">
       <div className="h-full w-full bg-no-repeat bg-cover bg-center relative">
@@ -50,6 +51,7 @@ const Page = () => {
             <h3 className="text-white">Trending Shows</h3>
             {/* <div className="flex w-[76vw] items-center justify-center mt-10 overflow-visiblebackdrop-blur-md"> */}
             <div className="">
+              {/* <FilmCard showStar={false}/> */}
               {/* <FilmCard showContinueWatch={false} showStar={false} />
               <FilmCard showContinueWatch={false} showStar={false} /> */}
 
@@ -61,5 +63,3 @@ const Page = () => {
     </div>
   );
 };
-
-export default Page;

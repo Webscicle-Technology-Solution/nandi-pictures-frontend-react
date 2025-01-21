@@ -7,7 +7,7 @@ import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const FilmCard = ({
+const ContinueFilmCard = ({
   imageSrc = "/poster.jpg", // Default placeholder image
   title = "THE RISE OF SUDARSHANckas;",
   isFavorite=false,
@@ -86,11 +86,11 @@ const FilmCard = ({
         
           <div className="absolute pt-2 bottom-4 ml-2 pl-3 pr-3 pb-2 flex items-center space-x-2 hover:bg-white/40 rounded-xl">
             <IoIosPlayCircle size={40} color="#FFBF00" />
-            <span className="text-lg font-light">Watch Now</span>
+            <span className="text-lg font-light">Continue Watching</span>
           </div>
       </div>
     </>
   );
 };
 
-export default FilmCard;
+export default ContinueFilmCard;
