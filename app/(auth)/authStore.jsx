@@ -15,6 +15,7 @@ const useAuthStore = create((set) => ({
     refreshToken,
   })),
 
+
   // Action to log the user out
   logout: () => set(() => ({
     isAuthenticated: false,

@@ -9,30 +9,7 @@ import FilmCardCarousel from "@/app/component/reuseable/FilmCardCarousel";
 import Link from "next/link";
 
 const Page = () => {
-  const movieList = [
-    {
-      imageSrc: "/poster.jpg", // Default placeholder image
-      title: "THE RISE OF SUDARSHAN CHAKRA", // Default title
-      showContinueWatch: true, // Show or hide Continue Watch
-      showStar: true, // Show or hide Star button
-      filmDetailUrl: "/login", // Default film detail URL
-    },
-
-    {
-      imageSrc: "/poster.jpg", // Default placeholder image
-      title: "THE 2", // Default title
-      showContinueWatch: true, // Show or hide Continue Watch
-      showStar: true, // Show or hide Star button
-      filmDetailUrl: "/login", // Default film detail URL
-    },
-    {
-      imageSrc: "/poster.jpg", // Default placeholder image
-      title: "THE 3", // Default title
-      showContinueWatch: true, // Show or hide Continue Watch
-      showStar: true, // Show or hide Star button
-      filmDetailUrl: "/login", // Default film detail URL
-    },
-  ];
+  
   return (
     <div className="flex flex-col justify-start items-start w-full">
       <div className="flex flex-row justify-between items-center w-full">
