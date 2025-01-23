@@ -8,9 +8,13 @@ import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const FilmCardCarousel = ({ movies = [] }) => {
+const FilmCardCarousel = ({ movies = [], vidType }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFav, setIsFav] = useState(false);
+  let filmurl = `/app/details/${vidType}`
+  // if(vidType == "movies"){
+  //   vidUrl = "/details/movies/"
+  // } 
 
   const settings = {
     dots: true,
@@ -50,7 +54,7 @@ const FilmCardCarousel = ({ movies = [] }) => {
                 </div>
 
                 {/* Gradient Overlay */}
-                <Link href={item.filmDetailUrl || "/login"}>
+                <Link href={filmurl + "/" + item._id} >
                   <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
                 </Link>
 

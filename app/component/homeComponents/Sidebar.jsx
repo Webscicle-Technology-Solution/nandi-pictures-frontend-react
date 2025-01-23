@@ -57,7 +57,7 @@ const Sidebar = () => {
           } rounded-r-full pl-10 pr-6 py-2 flex items-center gap-3`}
         >
           <TbDeviceTvOldFilled size={22} />
-          <h4>TV Shows</h4>
+          <h4>TV Series</h4>
         </Link>
 
         <Link
@@ -99,7 +99,7 @@ const Sidebar = () => {
           <div className="relative w-[22px] h-[22px]">
             <Image src="/rent.png" fill alt="Rental" />
           </div>
-          <h4>Rental</h4>
+          <h4>My Rentals</h4>
         </Link>
 
         <Link

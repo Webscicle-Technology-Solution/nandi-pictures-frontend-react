@@ -1,11 +1,55 @@
 "use client";
 import Image from "next/image";
 import GoldenButton from "./component/reuseable/GoldenButton";
-import DashboardCarosel from "./component/dashboard/DashboardCarosel";
+// import DashboardCarosel from "./component/dashboard/DashboardCarosel";
 import React from "react";
-import FilmCard from "./component/reuseable/FilmCard";
+import FilmCardCarousel from "./component/reuseable/FilmCardCarousel";
+import useAuthStore from "./(auth)/authStore";
+import { useEffect, useState } from "react";
+
 
 export default function Home() {
+  const [movies, setMovies] = useState([]);
+  const accessToken = useAuthStore((state) => state.accessToken);
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      if (!accessToken) {
+        console.log("No access token available");
+        return;
+      }
+
+      try {
+        console.log("Using access token:", accessToken); // Debug log
+        
+        const response = await fetch(`${apiBaseUrl}/movies/allmovies`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'token': `${accessToken}`
+          },  
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (data.message === "All movies founded successfully") {
+          setMovies(data.allmovies);
+        } else {
+          console.error("Error: Movies data not found.");
+        }
+        
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
+
+    fetchMovies();
+  }, [accessToken, apiBaseUrl]);
+
   return (
     <div className="overflow-auto scrollbar-hide">
       <div className="h-full w-full bg-no-repeat bg-cover bg-center relative">
@@ -55,7 +99,8 @@ export default function Home() {
               {/* <FilmCard showContinueWatch={false} showStar={false} />
               <FilmCard showContinueWatch={false} showStar={false} /> */}
 
-              <DashboardCarosel/>
+              {/* <DashboardCarosel/> */}
+              <FilmCardCarousel movies={movies} vidType="movies"/>
             </div>
           </div>
         </div>
