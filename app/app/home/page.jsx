@@ -6,12 +6,35 @@ import ProfileShow from "@/app/component/homeComponents/ProfileShow";
 import SearchBar from "@/app/component/homeComponents/SearchBar";
 import FilmCardCarousel from "@/app/component/reuseable/FilmCardCarousel";
 import Link from "next/link";
-import ContinueCarousel from "@/app/component/homeComponents/ContinueCarousel";
 import useAuthStore from "@/app/(auth)/authStore";
-
+import { usePathname } from "next/navigation";
+import { RiMovie2Fill } from "react-icons/ri";
+import { TbDeviceTvOldFilled } from "react-icons/tb";
+import { BiSolidCameraMovie } from "react-icons/bi";
+import { IoIosFilm } from "react-icons/io";
+import { SiApplemusic } from "react-icons/si";
 
 const Page = () => {
+  const [selectedCategory, setSelectedCategory] = useState('movies');
+
+  // Function to handle category selection
+  // const handleCategoryClick = (category) => {
+  //   setSelectedCategory(category);
+  // };
+
+  const pathname = usePathname();
+
+  let conditionResult = "";
+
+  if (pathname.includes("/app/")) {
+    const extractedWord = pathname.split("/app/")[1];
+    conditionResult = extractedWord.split("/")[0];
+  }
+
   const [movies, setMovies] = useState([]);
+
+  const user =useAuthStore((state)=>state.user)
+  const subscriptionPlan = useAuthStore((state) => state.subscriptionPlan); // Get subscription plan from store
   const accessToken = useAuthStore((state) => state.accessToken);
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -24,8 +47,11 @@ const Page = () => {
 
       try {
         console.log("Using access token:", accessToken); // Debug log
+        // console.log("user:",user.email)
+        console.log("user:",subscriptionPlan)
+
         
-        const response = await fetch(`${apiBaseUrl}/movies/allmovies`, {
+        const response = await fetch(`${apiBaseUrl}/${selectedCategory}/all${selectedCategory}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -63,6 +89,97 @@ const Page = () => {
       <div className="mt-5">
         <FeaturedCarousel />
       </div>
+      {/*Cateogary section */}
+      <div className="flex flex-row gap-5 mt-8 mb-5 ">
+      <Link
+          href="/app/home/movies"
+          className={`bg-gray-200 rounded-xl px-10 py-3 flex items-center gap-3  shadow-sm`}
+        >
+          <RiMovie2Fill size={22} />
+          <h4>Movies</h4>
+        </Link>
+        <Link
+          href="/app/home/tvshows"
+          className={` bg-gray-200 rounded-xl px-10 py-3 flex items-center gap-3  shadow-sm`}
+        >
+          <TbDeviceTvOldFilled size={22} />
+          <h4>TV Series</h4>
+        </Link>
+
+        <Link
+          href="/app/home/shortfilm"
+          className={` bg-gray-200 rounded-xl px-10 py-3 flex items-center gap-3  shadow-sm`}
+        >
+          <IoIosFilm size={22} />
+          <h4>Short Film</h4>
+        </Link>
+
+        <Link
+          href="/app/home/documentary"
+          className={`bg-gray-200 rounded-xl px-10 py-3 flex items-center gap-3  shadow-sm`}
+        >
+          <BiSolidCameraMovie size={22} />
+          <h4>Documentary</h4>
+        </Link> 
+
+       <Link
+          href="/app/home/music"
+          className={` bg-gray-200 rounded-xl px-10 py-3 flex items-center gap-3  shadow-sm`}
+        >
+          <SiApplemusic size={22} />
+          <h4>Music</h4>
+        </Link> 
+      </div>
+       
+
+        
+      {/*
+      <div className="flex flex-row gap-8 mt-1">
+      <div>
+     
+      <div className='flex flex-row items-center justify-around mt-8 mb-12 mr-40 gap-8'>
+        <h2
+          className={`cursor-pointer ${selectedCategory === 'movies' ? 'underline text-[#e99c05]' : ''}`}
+          onClick={() => handleCategoryClick('movies')}
+        >
+          All
+        </h2>
+        <h2
+          className={`cursor-pointer ${selectedCategory === 'movies' ? 'underline text-[#e99c05]' : ''}`}
+          onClick={() => handleCategoryClick('movies')}
+        >
+          Movies
+        </h2>
+        <h2
+          className={`cursor-pointer ${selectedCategory === 'tvseries' ? 'underline text-[#e99c05]' : ''}`}
+          onClick={() => handleCategoryClick('tvseries')}
+        >
+          TV Shows
+        </h2>
+        <h2
+          className={`cursor-pointer ${selectedCategory === 'documentary' ? 'underline text-[#e99c05]' : ''}`}
+          onClick={() => handleCategoryClick('documentary')}
+        >
+          Documentary
+        </h2>
+        <h2
+          className={`cursor-pointer ${selectedCategory === 'shortfilm' ? 'underline text-[#e99c05]' : ''}`}
+          onClick={() => handleCategoryClick('shortfilm')}
+        >
+          Short Film
+        </h2>
+        <h2
+          className={`cursor-pointer ${selectedCategory === 'videosong' ? 'underline text-[#e99c05]' : ''}`}
+          onClick={() => handleCategoryClick('videosong')}
+        >
+          Music
+        </h2>
+      </div>
+
+ 
+    </div>
+    </div>
+    */}
 
       {/* <h4 className="mt-10 ml-3">Continue Watching</h4>
       <div className="flex items-center justify-center overflow-visible">

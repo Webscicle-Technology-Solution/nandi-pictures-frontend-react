@@ -12,6 +12,7 @@ import { SiApplemusic } from "react-icons/si";
 import { BsBookmarkStarFill } from "react-icons/bs";
 import { IoSettings } from "react-icons/io5";
 import { usePathname } from "next/navigation";
+import { MdSubscriptions } from "react-icons/md";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -29,7 +30,7 @@ const Sidebar = () => {
         <Image src="/logo-only.png" fill alt="Logo" />
       </div>
 
-      <div className="flex flex-col gap-3 mt-1">
+      <div className="flex flex-col gap-8 mt-1">
         <Link
           href="/app/home"
           className={`${
@@ -40,7 +41,7 @@ const Sidebar = () => {
           <h4>Home</h4>
         </Link>
 
-        <Link
+        {/* <Link
           href="/app/movies"
           className={`${
             pathname.includes("movies") ? "backprim" : ""
@@ -78,9 +79,9 @@ const Sidebar = () => {
         >
           <BiSolidCameraMovie size={22} />
           <h4>Documentary</h4>
-        </Link>
+        </Link> */}
 
-        <Link
+        {/* <Link
           href="/app/music"
           className={`${
             pathname.includes("music") ? "backprim" : ""
@@ -88,7 +89,7 @@ const Sidebar = () => {
         >
           <SiApplemusic size={22} />
           <h4>Music</h4>
-        </Link>
+        </Link> */}
 
         <Link
           href="/app/rental"
@@ -121,6 +122,10 @@ const Sidebar = () => {
           <IoSettings size={22} />
           <h4>Settings</h4>
         </Link>
+        <button className="backprim rounded-full ml-3 pl-12 pr-12 py-3 flex items-center gap-3">
+        <MdSubscriptions size={25}  />
+          Subscrpition
+        </button>
       </div>
     </div>
   );

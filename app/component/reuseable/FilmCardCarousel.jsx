@@ -7,14 +7,44 @@ import { IoIosPlayCircle } from "react-icons/io";
 import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import getMovieAction from "@/app/utils/getMovieAction";
+import { useRouter } from "next/navigation";
+import useAuthStore from "@/app/(auth)/authStore";
+
 
 const FilmCardCarousel = ({ movies = [], vidType }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFav, setIsFav] = useState(false);
-  let filmurl = `/app/details/${vidType}`
-  // if(vidType == "movies"){
-  //   vidUrl = "/details/movies/"
-  // } 
+  const router = useRouter();
+  const subscriptionPlan = useAuthStore((state) => state.subscriptionPlan); // Get subscription plan from store
+
+  const handleFavClick = () => {
+    setIsFav(!isFav); // Toggle the favorite status
+  };
+
+  // Function to handle the "Watch Now" button click
+  const handleWatchNow = (movie) => {
+    const action = getMovieAction(movie, subscriptionPlan); // Determine action based on subscription plan and movie details
+    
+    if (action === 'login') {
+      // Redirect to login page or show login modal
+      alert('You need to log in to watch this movie!');
+      router.push('/login'); // Redirect to login page (you can replace with your login modal logic)
+    } else if (action === 'subscribe') {
+      // Redirect to subscription page
+      alert('You need a subscription to watch this movie!');
+      router.push('/subscribe'); // Redirect to the subscription page
+    } else if (action === 'rent') {
+      // Redirect to rent page
+      alert('You can rent this movie!');
+      router.push(`/rent/${movie._id}`); // Adjust the path as needed
+    } else if (action === 'watchNow') {
+      // Redirect to watch page
+      router.push(`/watch/${movie._id}`); // Assuming this is the path for watching
+    }
+  };
+
+  let filmurl = `/app/details/${vidType}`;
 
   const settings = {
     dots: true,
@@ -25,10 +55,6 @@ const FilmCardCarousel = ({ movies = [], vidType }) => {
     slidesToScroll: 2, // Scroll 2 cards at a time
     arrows: false,
     centerMode: false,
-  };
-
-  const handleFavClick = () => {
-    setIsFav(!isFav); // Toggle the favorite status
   };
 
   return (
@@ -94,7 +120,10 @@ const FilmCardCarousel = ({ movies = [], vidType }) => {
                   </div>
                 )}
 
-                <div className="absolute pt-2 bottom-4 ml-2 pl-3 pr-3 pb-2 flex items-center space-x-2 hover:bg-white/40 rounded-xl">
+                <div
+                  onClick={() => handleWatchNow(item)} // Trigger the check on click
+                  className="absolute pt-2 bottom-4 ml-2 pl-3 pr-3 pb-2 flex items-center space-x-2 hover:bg-white/40 rounded-xl cursor-pointer"
+                >
                   <IoIosPlayCircle size={40} color="#FFBF00" />
                   <span className="text-lg font-light">Watch Now</span>
                 </div>

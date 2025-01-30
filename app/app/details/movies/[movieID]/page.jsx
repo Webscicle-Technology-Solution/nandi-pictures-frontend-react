@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { IoIosPlayCircle } from 'react-icons/io';
 import { BsBookmarkStarFill } from 'react-icons/bs';
-import { usePathname } from "next/navigation";
+import { usePathname,useRouter  } from "next/navigation";
 import useAuthStore from "@/app/(auth)/authStore";
 import Image from 'next/image';
+import getMovieAction from '@/app/utils/getMovieAction';
 
 const MoviePage = () => {
   const pathname = usePathname();
@@ -14,8 +15,14 @@ const MoviePage = () => {
   const [movie, setMovie] = useState(null);  // Use single movie object instead of array
   const accessToken = useAuthStore((state) => state.accessToken);
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const subscriptionPlan = useAuthStore((state) => state.subscriptionPlan); // Get subscription plan from store
+  const [buttonText, setButtonText] = useState("Watch Now");  // Default button text
+  const router = useRouter();  // Import useRouter to handle redirection
+
+
 
   useEffect(() => {
+    
     const fetchMovieDetails = async () => {
       if (!accessToken) {
         console.log("No access token available");
@@ -54,6 +61,47 @@ const MoviePage = () => {
     fetchMovieDetails();
   }, [accessToken, apiBaseUrl, movieID]);
 
+    // Handle the "Watch Now" button click
+    const handleWatchNow = () => {
+      const action = getMovieAction(movie, subscriptionPlan);  // Determine the action based on movie and subscription
+  
+      if (action === 'login') {
+        alert('You need to log in to watch this movie!');
+        router.push('/login');  // Redirect to the login page
+      } else if (action === 'subscribe') {
+        alert('You need a subscription to watch this movie!');
+        router.push('/subscribe');  // Redirect to the subscription page
+      } else if (action === 'rent') {
+        alert('You can rent this movie!');
+        router.push(`/rent/${movie._id}`);  // Redirect to the rent page
+      } else if (action === 'watchNow') {
+        router.push(`/watch/movie/${movie._id}`);  // Redirect to the watch page
+      }
+    };
+
+
+  //button label function
+  const setButtonLabel = () => {
+    const action = getMovieAction(movie, subscriptionPlan);
+  
+    if (action === 'login') {
+      setButtonText("Login to Watch");
+    } else if (action === 'subscribe') {
+      setButtonText("Subscribe to Watch");
+    } else if (action === 'rent') {
+      setButtonText("Rent Now");
+    } else if (action === 'watchNow') {
+      setButtonText("Watch Now");
+    }
+  };
+  useEffect(() => {
+    if (movie) {
+      setButtonLabel();  // Update the button text
+    }
+  }, [movie, subscriptionPlan]);
+
+  
+
   // If the movie data is still loading, show a loading state
   if (!movie) {
     return <div>Loading...</div>;
@@ -76,15 +124,18 @@ const MoviePage = () => {
       </div>
       
       <div className='flex flex-row mt-5 gap-5'>
-        <Link
-          href="/app/home"
+        <button
+          onClick={handleWatchNow}
+          // href="/app/home"
           className="button-primary backprim flex flex-row justify-center items-center gap-2 "
         >
           <IoIosPlayCircle size={40} color="#0C0C0C" />
-          <span className="text-[1.5rem] text-[#0C0C0C]" onClick={() => { 
-            window.location.href = "/app/watch/movie/" + movie._id;
-          }}>Watch Now</span>
-        </Link>
+          <span className="text-[1.5rem] text-[#0C0C0C]" 
+          // onClick={() => { 
+          //   window.location.href = "/app/watch/movie/" + movie._id;
+          // }}
+          >{buttonText}</span>
+        </button>
         <button className="bg-[#0c0c0c] p-3 rounded-xl text-white hover:bg-gray-700 flex flex-row justify-center items-center gap-2 pl-5">
           <BsBookmarkStarFill size={25} />
           Add to Favorite

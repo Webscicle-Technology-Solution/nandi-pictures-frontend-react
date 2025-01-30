@@ -1,14 +1,14 @@
 "use client";
-import FilmCard from '@/app/component/reuseable/FilmCard'
 import React from 'react'
+import FilmCardCarousel from "@/app/component/reuseable/FilmCardCarousel";
 
 const page = () => {
   return (
     <div className='flex flex-col justify-start items-start w-full'>
       <h1>Favourite</h1>
       <div className='w-full flex'>
-      <FilmCard showStar={true} showContinueWatch={false} imageSrc='/poster.jpg' title='THE RISE OF SUDARSHAN CHAKRA' isFavorite={true} />
-      <FilmCard showStar={true} showContinueWatch={false} imageSrc='/poster.jpg' title='THE RISE OF SUDARSHAN CHAKRA' isFavorite={true} />
+      <FilmCardCarousel />
+      
       
       </div>
 

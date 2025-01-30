@@ -15,6 +15,7 @@ const useAuthStore = create(
       isAuthenticated: false,
       accessToken: null,
       refreshToken: null,
+      subscriptionPlan: null, // Add subscriptionPlan state
       user: null,
 
       login: async (email, password) => {
@@ -38,12 +39,13 @@ const useAuthStore = create(
           // Save to cookies
           Cookies.set('accessToken', accessToken, COOKIE_CONFIG);
           Cookies.set('refreshToken', refreshToken, COOKIE_CONFIG);
-          
-          // Update store
+
+          // Update store with subscriptionPlan as well
           set({
             isAuthenticated: true,
             accessToken,
             refreshToken,
+            subscriptionPlan: user?.subscriptionPlan || null,
             user
           });
 
@@ -66,6 +68,7 @@ const useAuthStore = create(
           isAuthenticated: false,
           accessToken: null,
           refreshToken: null,
+          subscriptionPlan: null, // Clear subscriptionPlan on logout
           user: null
         });
       },
