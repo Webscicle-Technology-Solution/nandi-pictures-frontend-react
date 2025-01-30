@@ -10,13 +10,17 @@ const VideoPlayer = dynamic(
   }
 );
 
-const Page = ({ params }) => {
+const Page = async ({ params }) => {
+  const { movieID } = await params; // Destructure the movieID from params
+
+  // Dynamically construct the HLS URL based on the movieID
+  const hlsUrl = `http://localhost:3001/hls/movies/hls/${movieID}.mp4`;
   return (
     <div>
       <VideoPlayer
-        hlsBasePath="http://localhost:3001/hls/movies/hls/vitamin_d.mp4"
+        hlsBasePath={hlsUrl}
         defaultResolution="1080p"
-        movieTitle="Vitamin D - The Documentary"
+        movieTitle={movieID}
       />
     </div>
   );
