@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import InputFields from '@/app/component/formComponents/inputFields/InputFields';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Using react-icons for eye toggle
+import useAuthStore from '../authStore';
+
 
 const Page = () => {
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -18,6 +20,9 @@ const Page = () => {
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
+
+  const register = useAuthStore((state) => state.register);
+
 
 
   // Handle Input Changes and Validation
@@ -129,36 +134,12 @@ const Page = () => {
     }
 
     if (isValid) {
-      console.log('api:', `${apiBaseUrl}/api/auth/register`);
-      // Proceed with API call for login
-      try {
-        const response = await fetch(`${apiBaseUrl}/api/auth/register`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({name: name,phone: phone, email: emailID, newpassword: password,confirmpassword: confirmPass}),
-        });
+      const result = await register(name,phone, emailID, confirmPass, password);
 
-        const data = await response.json();
-
-        if (response.ok) {
-          // Successful login, store the tokens in Zustand
-          const { accessToken, refreshToken, user } = data;
-
-          // Store the tokens and user data in Zustand
-          login(accessToken, refreshToken, user);
-
-          // Redirect the user to the dashboard or home page
-          window.location.href = '/app/home';  // Replace with actual route
-
-        } else {
-          // Handle login error
-          alert(data.message || 'Registartion failed');
-        }
-      } catch (error) {
-        console.error('Error during account creation:', error);
-        alert('Something went wrong, please try again');
+      if (result.success) {
+        router.push('/app/home');
+      } else {
+        alert(result.error || 'Login failed');
       }
     }
   };

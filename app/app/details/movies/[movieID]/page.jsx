@@ -1,6 +1,5 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { IoIosPlayCircle } from 'react-icons/io';
 import { BsBookmarkStarFill } from 'react-icons/bs';
 import { usePathname,useRouter  } from "next/navigation";
@@ -24,10 +23,10 @@ const MoviePage = () => {
   useEffect(() => {
     
     const fetchMovieDetails = async () => {
-      if (!accessToken) {
-        console.log("No access token available");
-        return;
-      }
+      // if (!accessToken) {
+      //   console.log("No access token available");
+      //   return;
+      // }
 
       try {
         console.log("Using access token:", accessToken); // Debug log
@@ -51,7 +50,6 @@ const MoviePage = () => {
 
         if (data.message === "Movie found successfully") {
           setMovie(data.moviedetails); // Update state with the movie details
-          console.log(data.moviedetails);
         } else {
           console.error("Error: Movie data not found.");
         }
@@ -65,8 +63,10 @@ const MoviePage = () => {
 
     // Handle the "Watch Now" button click
     const handleWatchNow = () => {
-      const action = getMovieAction(movie, subscriptionPlan);  // Determine the action based on movie and subscription
-  
+      const action = getMovieAction(movie, "free");  // Determine the action based on movie and subscription
+      
+      console.log('Action:', action);  // Debugging to make sure the correct action is returned
+      
       if (action === 'login') {
         alert('You need to log in to watch this movie!');
         router.push('/login');  // Redirect to the login page
@@ -75,24 +75,29 @@ const MoviePage = () => {
         router.push('/subscribe');  // Redirect to the subscription page
       } else if (action === 'rent') {
         alert('You can rent this movie!');
-        router.push(`/rent/${movie._id}`);  // Redirect to the rent page
+        router.push(`/rent/${movie._id}`);  // Ensure correct route for rent action
       } else if (action === 'watchNow') {
         router.push(`/watch/movie/${movie._id}`);  // Redirect to the watch page
       }
     };
+    
 
 
   //button label function
   const setButtonLabel = () => {
-    const action = getMovieAction(movie, subscriptionPlan);
+    const action = getMovieAction(movie, "free");
   
     if (action === 'login') {
       setButtonText("Login to Watch");
-    } else if (action === 'subscribe') {
-      setButtonText("Subscribe to Watch");
-    } else if (action === 'rent') {
+    } 
+    else if (action === 'rent') {
       setButtonText("Rent Now");
-    } else if (action === 'watchNow') {
+    } 
+    else if (action === 'subscribe') {
+      setButtonText("Subscribe to Watch");
+    } 
+    
+    else if (action === 'watchNow') {
       setButtonText("Watch Now");
     }
   };
@@ -106,6 +111,7 @@ const MoviePage = () => {
 
   // If the movie data is still loading, show a loading state
   if (!movie) {
+    
     return <div>Loading...</div>;
   }
 

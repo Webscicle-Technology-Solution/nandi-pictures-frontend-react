@@ -32,18 +32,24 @@ const Page = () => {
   }
 
   const [movies, setMovies] = useState([]);
+  const [user,setUser] = useState(null)
 
-  const user =useAuthStore((state)=>state.user)
+  // const user =useAuthStore((state)=>state.user)
+
+  const checkAuth = useAuthStore((state) => state.checkAuth);
+
   const subscriptionPlan = useAuthStore((state) => state.subscriptionPlan); // Get subscription plan from store
   const accessToken = useAuthStore((state) => state.accessToken);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   useEffect(() => {
     const fetchMovies = async () => {
-      if (!accessToken) {
-        console.log("No access token available");
-        return;
-      }
+      // if (!accessToken) {
+      //   console.log("No access token available");
+      //   return;
+      // }
 
       try {
         console.log("Using access token:", accessToken); // Debug log
@@ -51,11 +57,11 @@ const Page = () => {
         console.log("user:",subscriptionPlan)
 
         
-        const response = await fetch(`${apiBaseUrl}/${selectedCategory}/all${selectedCategory}`, {
+        const response = await fetch(`${apiBaseUrl}/movies/allmovies`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'token': `${accessToken}`
+            // 'token': `${accessToken}`
           },  
         });
 
@@ -77,6 +83,29 @@ const Page = () => {
 
     fetchMovies();
   }, [accessToken, apiBaseUrl]);
+
+  useEffect(() => {
+    const fetchuser = async () => {
+      if (!isAuthenticated) {
+        console.log("No access token available");
+        return;
+      }
+
+      try {
+       const response = await checkAuth();
+
+        if (!response) {
+          console.error("Error: User data not found.");
+        }else{
+          setUser(response)
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+
+    }
+    fetchuser();
+  },[isAuthenticated,checkAuth])
 
 
   return (
@@ -130,61 +159,6 @@ const Page = () => {
           <h4>Music</h4>
         </Link> 
       </div>
-       
-
-        
-      {/*
-      <div className="flex flex-row gap-8 mt-1">
-      <div>
-     
-      <div className='flex flex-row items-center justify-around mt-8 mb-12 mr-40 gap-8'>
-        <h2
-          className={`cursor-pointer ${selectedCategory === 'movies' ? 'underline text-[#e99c05]' : ''}`}
-          onClick={() => handleCategoryClick('movies')}
-        >
-          All
-        </h2>
-        <h2
-          className={`cursor-pointer ${selectedCategory === 'movies' ? 'underline text-[#e99c05]' : ''}`}
-          onClick={() => handleCategoryClick('movies')}
-        >
-          Movies
-        </h2>
-        <h2
-          className={`cursor-pointer ${selectedCategory === 'tvseries' ? 'underline text-[#e99c05]' : ''}`}
-          onClick={() => handleCategoryClick('tvseries')}
-        >
-          TV Shows
-        </h2>
-        <h2
-          className={`cursor-pointer ${selectedCategory === 'documentary' ? 'underline text-[#e99c05]' : ''}`}
-          onClick={() => handleCategoryClick('documentary')}
-        >
-          Documentary
-        </h2>
-        <h2
-          className={`cursor-pointer ${selectedCategory === 'shortfilm' ? 'underline text-[#e99c05]' : ''}`}
-          onClick={() => handleCategoryClick('shortfilm')}
-        >
-          Short Film
-        </h2>
-        <h2
-          className={`cursor-pointer ${selectedCategory === 'videosong' ? 'underline text-[#e99c05]' : ''}`}
-          onClick={() => handleCategoryClick('videosong')}
-        >
-          Music
-        </h2>
-      </div>
-
- 
-    </div>
-    </div>
-    */}
-
-      {/* <h4 className="mt-10 ml-3">Continue Watching</h4>
-      <div className="flex items-center justify-center overflow-visible">
-        <ContinueCarousel />
-      </div> */}
 
       <h4 className="mt-8 ml-3">New Releases</h4>
       <div className="flex items-center justify-center overflow-visible">

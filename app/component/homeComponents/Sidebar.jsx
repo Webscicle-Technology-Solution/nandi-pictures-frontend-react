@@ -1,20 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoHome } from "react-icons/io5";
-import { RiMovie2Fill } from "react-icons/ri";
-import { TbDeviceTvOldFilled } from "react-icons/tb";
-import { BiSolidCameraMovie } from "react-icons/bi";
-import { IoIosFilm } from "react-icons/io";
-import { SiApplemusic } from "react-icons/si";
+
 import { BsBookmarkStarFill } from "react-icons/bs";
 import { IoSettings } from "react-icons/io5";
-import { usePathname } from "next/navigation";
 import { MdSubscriptions } from "react-icons/md";
+import { usePathname, useRouter } from "next/navigation";
+import useAuthStore from "@/app/(auth)/authStore";
+
 
 const Sidebar = () => {
+
+  // STATES
+  const [userSubscription, setUserSubscription] = useState(null);
+  const [loading, setLoading] = useState(true);  // State to track loading status
+
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const checkAuth = useAuthStore((state) => state.checkAuth);
+
+
+ const router = useRouter()
   const pathname = usePathname();
 
   let conditionResult = "";
@@ -24,6 +32,43 @@ const Sidebar = () => {
     conditionResult = extractedWord.split("/")[0];
   }
 
+  const handleSubscriptionButtonClick = () => {
+    if (!isAuthenticated) {
+      // Redirect to login page if not authenticated
+      router.push("/login");
+    } else {
+      // Redirect to subscription plan page if authenticated
+      router.push("/app/plan");
+    }
+  };
+
+  useEffect(() => {
+    const fetchuser = async () => {
+      if (!isAuthenticated) {
+        console.log("No access token available");
+        setLoading(false);  // Set loading to false if not authenticated
+        return;
+      }
+
+      try {
+       const response = await checkAuth();
+
+        if (!response) {
+          console.error("Error: User data not found.");
+        }else{
+          setUserSubscription(response.user.subscriptionId.subscriptionTypeId.name)
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      } finally {
+        setLoading(false);
+      }
+
+    }
+    fetchuser();
+  },[isAuthenticated,checkAuth])
+  
+console.log("userSubscription:",isAuthenticated)
   return (
     <div className="fixed top-0 left-0 h-full flex flex-col justify-start items-center pt-10">
       <div className="relative w-[70px] h-[84px] mb-8">
@@ -40,56 +85,6 @@ const Sidebar = () => {
           <IoHome size={22} />
           <h4>Home</h4>
         </Link>
-
-        {/* <Link
-          href="/app/movies"
-          className={`${
-            pathname.includes("movies") ? "backprim" : ""
-          } rounded-r-full pl-10 pr-6 py-2 flex items-center gap-3`}
-        >
-          <RiMovie2Fill size={22} />
-          <h4>Movies</h4>
-        </Link>
-
-        <Link
-          href="/app/tvshows"
-          className={`${
-            pathname.includes("tvshows") ? "backprim" : ""
-          } rounded-r-full pl-10 pr-6 py-2 flex items-center gap-3`}
-        >
-          <TbDeviceTvOldFilled size={22} />
-          <h4>TV Series</h4>
-        </Link>
-
-        <Link
-          href="/app/shortfilm"
-          className={`${
-            pathname.includes("shortfilm") ? "backprim" : ""
-          } rounded-r-full pl-10 pr-6 py-2 flex items-center gap-3`}
-        >
-          <IoIosFilm size={22} />
-          <h4>Short Film</h4>
-        </Link>
-
-        <Link
-          href="/app/documentary"
-          className={`${
-            pathname.includes("documentary") ? "backprim" : ""
-          } rounded-r-full pl-10 pr-6 py-2 flex items-center gap-3`}
-        >
-          <BiSolidCameraMovie size={22} />
-          <h4>Documentary</h4>
-        </Link> */}
-
-        {/* <Link
-          href="/app/music"
-          className={`${
-            pathname.includes("music") ? "backprim" : ""
-          } rounded-r-full pl-10 pr-6 py-2 flex items-center gap-3`}
-        >
-          <SiApplemusic size={22} />
-          <h4>Music</h4>
-        </Link> */}
 
         <Link
           href="/app/rental"
@@ -122,10 +117,33 @@ const Sidebar = () => {
           <IoSettings size={22} />
           <h4>Settings</h4>
         </Link>
-        <button className="backprim rounded-full ml-3 pl-12 pr-12 py-3 flex items-center gap-3">
-        <MdSubscriptions size={25}  />
-          Subscrpition
-        </button>
+        {/* Subscription Button (Change based on subscription status) */}
+        <button
+  onClick={handleSubscriptionButtonClick}
+  className={`${
+    loading 
+      ? "bg-gray-300 text-transparent cursor-not-allowed animate-pulse" // Loading styles
+      : "backprim" // Normal button styles
+  } rounded-full ml-3 pl-12 pr-12 py-3 flex items-center gap-3 text-[15px] font-semiold`}
+>
+  <MdSubscriptions />
+  {loading ? (
+    <div className="animate-pulse w-16 h-4 bg-gray-300 rounded-md" /> // Loading skeleton
+  ) : isAuthenticated ? (
+    userSubscription === "free" ? (
+      "Subscribe"
+    ) : userSubscription === "silver" ? (
+      <span>Upgrade to Gold</span>
+    ) : userSubscription === "gold" ? (
+      <span>Gold Plan</span>
+    ) : (
+      "Subscribe"
+    )
+  ) : (
+    "Login"
+  )}
+</button>
+
       </div>
     </div>
   );

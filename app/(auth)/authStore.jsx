@@ -2,25 +2,24 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import Cookies from "js-cookie";
 
-// Cookie configuration
 const COOKIE_CONFIG = {
   expires: 7, // 7 days
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "strict",
+  secure: process.env.NODE_ENV === "production", // Ensure cookies are sent over HTTPS
+  sameSite: "strict", // CSRF protection
 };
+
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const useAuthStore = create(
   persist(
     (set) => ({
       isAuthenticated: false,
-      accessToken: null,
-      refreshToken: null,
-      subscriptionPlan: null, // Add subscriptionPlan state
-      user: null,
+      accessToken: null, // Store only the access token here temporarily
 
+      // Login function
       login: async (email, password) => {
         try {
-          const response = await fetch(`http://localhost:3001/api/auth/login`, {
+          const response = await fetch(`${apiBaseUrl}/auth/login`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -34,19 +33,15 @@ const useAuthStore = create(
             throw new Error(data.message || "Login failed");
           }
 
-          const { accessToken, refreshToken, user } = data;
+          const { accessToken } = data;
 
-          // Save to cookies
+          // Set tokens in cookies (refresh token is set by backend in HttpOnly cookie)
           Cookies.set('accessToken', accessToken, COOKIE_CONFIG);
-          Cookies.set('refreshToken', refreshToken, COOKIE_CONFIG);
 
-          // Update store with subscriptionPlan as well
+          // Update Zustand store (only store the access token)
           set({
             isAuthenticated: true,
             accessToken,
-            refreshToken,
-            subscriptionPlan: user?.subscriptionPlan || null,
-            user
           });
 
           return { success: true };
@@ -58,43 +53,148 @@ const useAuthStore = create(
         }
       },
 
+      // Register function
+      register: async (name,phone, emailID,confirmPass, password) => {
+        try {
+          const response = await fetch(`${apiBaseUrl}/api/auth/register`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({name: name,phone: phone, email: emailID, newpassword: password,confirmpassword: confirmPass}),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Registration failed");
+          }
+
+          const { accessToken } = data;
+
+          // Set tokens in cookies (refresh token is set by backend in HttpOnly cookie)
+          Cookies.set('accessToken', accessToken, COOKIE_CONFIG);
+
+          // Update Zustand store (only store the access token)
+          set({
+            isAuthenticated: true,
+            accessToken,
+          });
+
+          return { success: true };
+        } catch (error) {
+          return {
+            success: false,
+            error: error.message || "An error occurred",
+          };
+        }
+      },
+
+      // Logout function
       logout: () => {
         // Clear cookies
         Cookies.remove("accessToken");
-        Cookies.remove("refreshToken");
+        Cookies.remove("refreshToken"); // Optional: You can remove the refresh token here as well (though it's HttpOnly)
 
-        // Reset store
+        // Reset Zustand store
         set({
           isAuthenticated: false,
           accessToken: null,
-          refreshToken: null,
-          subscriptionPlan: null, // Clear subscriptionPlan on logout
-          user: null
         });
       },
 
-      // Initialize the store with cookies if they exist
+      // Initialize store from cookies if they exist
       initializeFromCookies: () => {
         const accessToken = Cookies.get("accessToken");
-        const refreshToken = Cookies.get("refreshToken");
 
         if (accessToken) {
           set({
             isAuthenticated: true,
             accessToken,
-            refreshToken,
           });
+        }
+      },
+
+      // Token refresh function (using the refresh token stored in cookie)
+      refreshAccessToken: async () => {
+        const refreshToken = Cookies.get("refreshToken");
+
+        if (!refreshToken) {
+          console.error("Refresh token not found");
+          return false;
+        }
+
+        try {
+          const response = await fetch(`${apiBaseUrl}/auth/checkauth`, {
+            method: "POST",
+            headers: {
+              "token": `${accessToken}`, // Send access token to the backend
+            },
+            credentials: "include", // Ensure cookies (RT) are sent with the request
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to refresh token");
+          }
+
+          const data = await response.json();
+          const { accessToken } = data;
+
+          // Update the access token in the cookie and Zustand store
+          Cookies.set('accessToken', accessToken, COOKIE_CONFIG);
+          set({ accessToken });
+
+          return true;
+
+        } catch (error) {
+          console.error("Error while refreshing access token:", error);
+          return false;
+        }
+      },
+
+      // Check if the access token is expired and refresh it
+      checkAuth: async () => {
+        const accessToken = Cookies.get("accessToken");
+
+        if (!accessToken) {
+          return false;
+        }
+
+        try {
+          const response = await fetch(`${apiBaseUrl}/auth/checkauth`, {
+            method: "GET",
+            headers: {
+              "token": `${accessToken}`,
+            },
+          });
+          
+          const data = await response.json();
+
+          if (response.ok) {
+            return data;
+          }
+
+          // if (response.status === 402) {
+          //   // Token expired, refresh it
+          //   // const refreshed = await useAuthStore.getState().refreshAccessToken();
+          //   // return refreshed;
+          // }
+
+          return response;
+        } catch (error) {
+          console.error("Error in checkauth:", error);
+          return false;
         }
       },
     }),
     {
-      name: "auth-storage", // unique name for localStorage
-      storage: createJSONStorage(() => localStorage),
+      name: "auth-storage", // Unique name for localStorage
+      storage: createJSONStorage(() => localStorage), // Persist only non-sensitive data in localStorage
     }
   )
 );
 
-// Initialize from cookies when the store is created
+// Initialize store state from cookies (this happens on app load)
 useAuthStore.getState().initializeFromCookies();
 
 export default useAuthStore;
