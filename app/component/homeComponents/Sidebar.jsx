@@ -18,8 +18,7 @@ const Sidebar = () => {
   const [userSubscription, setUserSubscription] = useState(null);
   const [loading, setLoading] = useState(true);  // State to track loading status
 
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const checkAuth = useAuthStore((state) => state.checkAuth);
+  const { isAuthenticated, checkAuth } = useAuthStore();
 
 
  const router = useRouter()
@@ -46,27 +45,26 @@ const Sidebar = () => {
     const fetchuser = async () => {
       if (!isAuthenticated) {
         console.log("No access token available");
+        setUserSubscription(null);
         setLoading(false);  // Set loading to false if not authenticated
         return;
       }
 
       try {
-       const response = await checkAuth();
-
-        if (!response) {
-          console.error("Error: User data not found.");
-        }else{
-          setUserSubscription(response.user.subscriptionId.subscriptionTypeId.name)
+        const response = await checkAuth();
+        if (response?.user?.subscriptionId?.subscriptionTypeId?.name) {
+          setUserSubscription(response.user.subscriptionId.subscriptionTypeId.name);
         }
       } catch (error) {
-        console.error("Error fetching user:", error);
+        console.error("Error fetching user subscription:", error);
+        setUserSubscription(null);
       } finally {
         setLoading(false);
       }
 
     }
     fetchuser();
-  },[isAuthenticated,checkAuth])
+  },[isAuthenticated,checkAuth,setUserSubscription])
   
 console.log("userSubscription:",isAuthenticated)
   return (

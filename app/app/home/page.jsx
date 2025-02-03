@@ -13,8 +13,11 @@ import { TbDeviceTvOldFilled } from "react-icons/tb";
 import { BiSolidCameraMovie } from "react-icons/bi";
 import { IoIosFilm } from "react-icons/io";
 import { SiApplemusic } from "react-icons/si";
+import SkeletonLoader from "@/app/component/reuseable/filmcardskelton";
 
 const Page = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const [selectedCategory, setSelectedCategory] = useState('movies');
 
   // Function to handle category selection
@@ -78,6 +81,8 @@ const Page = () => {
         
       } catch (error) {
         console.error("Error fetching movies:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -106,6 +111,9 @@ const Page = () => {
     }
     fetchuser();
   },[isAuthenticated,checkAuth])
+
+  // Skeleton Loading Component
+
 
 
   return (
@@ -162,7 +170,18 @@ const Page = () => {
 
       <h4 className="mt-8 ml-3">New Releases</h4>
       <div className="flex items-center justify-center overflow-visible">
-        <FilmCardCarousel movies={movies} vidType={"movies"} />
+        {isLoading ? (
+          <div className="flex space-x-4">
+            <div className="w-72 h-[400px] bg-gray-200 animate-pulse"></div>
+            <div className="w-72 h-[400px] bg-gray-200 animate-pulse"></div>
+            <div className="w-72 h-[400px] bg-gray-200 animate-pulse"></div>
+            <div className="w-72 h-[400px] bg-gray-200 animate-pulse"></div>
+
+          </div>
+        ): (
+          <FilmCardCarousel movies={movies} vidType={"movies"} />
+        )}
+        
       </div>
 
       <h4 className="mt-8 ml-3">Top Trending</h4>

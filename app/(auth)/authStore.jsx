@@ -174,11 +174,6 @@ const useAuthStore = create(
             return data;
           }
 
-          // if (response.status === 402) {
-          //   // Token expired, refresh it
-          //   // const refreshed = await useAuthStore.getState().refreshAccessToken();
-          //   // return refreshed;
-          // }
 
           return response;
         } catch (error) {

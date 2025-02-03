@@ -1,37 +1,43 @@
-const getCookie = (name) => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-};
+/*
+@params movie: movie object
+@params userSubscription: user subscription plan NAME
 
-const getMovieAction = (movieDetails, subscriptionPlan) => {
-  const token = getCookie('accessToken');
-  
-  if (!token) {
-    return 'login'; // Prompt to log in if no access token
+Checks and returns what the next course of action should be, whether to let watch, rent or subscribe.
+*/
+
+const getMovieAction = (movie, userSubscription) => {
+  // Guard clause for when movie data isn't available
+  if (!movie) {
+    return 'error';
   }
 
-  // Check if the movie is "rentable"
-  if (movieDetails.accessParams.accessType === 'rentable' && movieDetails.accessParams.isRentable) {
-    // Movie is rentable, check subscription plan
-    if (subscriptionPlan === 'free') {
-      return 'rent'; // Prompt to rent if on a free subscription
+  // Case 1: If user is not logged in
+  if (!userSubscription) {
+    return 'login';
+  }
+
+  // Normalize subscription name to lowercase for comparison
+  const subscription = userSubscription.toLowerCase();
+
+  // Case 4 & 5: Premium subscriptions (gold or silver) can watch any movie
+  if (['gold', 'silver'].includes(subscription)) {
+    return 'watchNow';
+  }
+
+  // For free subscription users, handle different movie types
+  if (subscription === 'free') {
+    const movieAccessType = movie.accessParams.accessType.toLowerCase();
+    if(movieAccessType ==="free"){
+      return 'watchNow';
+    }else if(movieAccessType === 'rentable'){
+      return 'rent';
     } else {
-      return 'watchNow'; // If the user has a paid subscription, allow watching directly
+      return 'subscribe'
     }
   }
 
-  // Check if the movie is free
-  if (movieDetails.accessParams.accessType === 'free' && movieDetails.isFree) {
-    return 'watchNow'; // Allow watching free movies
-  }
-
-  // Default case for free subscription
-  if (subscriptionPlan === 'free') {
-    return 'subscribe'; // Prompt to subscribe for non-free content
-  }
-
-  return 'watchNow'; // If no other case matches, allow watching for other subscriptions
+  // Default fallback
+  return 'error';
 };
 
 export default getMovieAction;
